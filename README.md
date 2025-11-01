@@ -95,17 +95,17 @@ Standard Android libraries
 Folder Structure
 text
 project/
-  ├── stock_predictor.ipynb
-  ├── data/
-  │    └── tesla_2014-2023.csv
-  ├── model/
-  │    └── stock_lstm.tflite
-  ├── android-app/
-  │    ├── assets/
-  │    │     └── stock_lstm.tflite
-  │    └── src/...
-  ├── main.png
-  ├── README.md
+├── stock_predictor.ipynb
+├── data/
+│    └── tesla_2014-2023.csv
+├── model/
+│    └── stock_lstm.tflite
+├── android-app/
+│    ├── assets/
+│    │     └── stock_lstm.tflite
+│    └── src/...
+├── main.png
+├── README.md
 How to Reproduce
 Clone the repository.
 
