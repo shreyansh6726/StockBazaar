@@ -1,178 +1,107 @@
-# 🚗 Tesla Stock Price Predictor  
+Tesla Stock Price Predictor
+A machine learning project that predicts Tesla (TSLA) stock prices using LSTM neural networks trained on 10 years of historical market data (2014-2023).
 
-> **Predict future Tesla (TSLA) stock prices using 10 years of historical data and an advanced LSTM neural network — integrated into a native Android app for real-time forecasting.**
+Overview
+This project uses Long Short-Term Memory (LSTM) neural networks to forecast Tesla stock prices. The model analyzes historical price patterns, technical indicators, and market trends to predict future closing prices.
 
----
+Features
+LSTM-based prediction model trained on 10 years of Tesla stock data
+Technical indicators including RSI, CCI, MACD, Bollinger Bands, ATR, and moving averages
+Model evaluation with RMSE, MAE, R² score, and MAPE metrics
+Visualization of predicted vs actual stock prices
+Ready for deployment to Android apps using TensorFlow Lite
+Dataset
+The dataset includes:
 
-## 🧭 Overview  
+Daily stock prices (Open, High, Low, Close, Volume)
+Technical indicators (RSI-7, RSI-14, CCI-7, CCI-14)
+Moving averages (SMA-50, EMA-50, SMA-100, EMA-100)
+MACD, Bollinger Bands, True Range, ATR
+Target variable: next day's closing price
+Data spans from 2014 to 2023, providing approximately 2,500+ trading days for training and testing.
 
-This project leverages **Machine Learning** and a **decade’s worth of Tesla stock market data (2014–2023)** to forecast future prices.  
-At its heart lies an **LSTM (Long Short-Term Memory)** neural network — a model particularly effective for **time-series forecasting** tasks such as stock prediction.  
-
-The trained model is integrated into a **native Android app** using **TensorFlow Lite**, providing real-time and on-the-go analysis with a clean, intuitive user interface.
-
----
-
-## ✨ Features  
-
-- 🔮 **Predicts Tesla’s upcoming stock price** based on historical trends.  
-- 🧠 **Uses LSTM architecture** for accurate sequence forecasting.  
-- 📊 **Visualizes predicted vs actual prices** for better insights.  
-- 📱 **Native Android app** with TensorFlow Lite integration.  
-- 🎨 **Minimalist & modern UI** following a blue/cyan color palette.  
-
----
-
-## 📂 Dataset  
-
-- **Source:** Tesla historical stock prices (2014–2023)  
-- **Format:** CSV file containing  
-Date | Open | High | Low | Close | Volume
-
-markdown
-Copy code
-- **Preprocessing:**  
-- Handled missing values  
-- Normalized the closing price  
-- Split into training/testing datasets  
-- Reshaped into 60-day input windows for LSTM  
-
----
-
-## 🧩 Approach & Methodology  
-
-### 1. Data Collection & Preprocessing  
-- Fetched daily **TSLA** data from sources like *Yahoo Finance* or *Alpha Vantage*.  
-- Handled missing values and normalized closing prices.  
-- Shaped input sequences: each input = last 60 days, output = next day’s price.
-
-### 2. Model Design: LSTM Architecture  
-- **Input Layer** → **LSTM Layer(s)** → **Dropout Layer** → **Dense Output Layer**  
-- **Loss Function:** Mean Squared Error (MSE)  
-- **Optimizer:** Adam  
-- **Frameworks:** TensorFlow / Keras  
-
-### 3. Prediction & Evaluation  
-- Tested the model on **unseen 2023 data**.  
-- Evaluated using **Root Mean Square Error (RMSE)**.  
-- Visualized predictions vs. actual stock prices.  
-
-### 4. Android Integration  
-- Converted trained `.h5` model to `.tflite` for mobile deployment.  
-- Integrated **TensorFlow Lite Interpreter** for real-time inference.  
-- Designed a **clean, modern UI** in **Android Studio** (Java/Kotlin).  
-- Added animated “Start” button, tagline, and intuitive navigation.  
-
----
-
-## 🧑‍💻 Usage  
-
-### 🔹 Running the Model (Python/Notebook)
-1. Open and run `stock_predictor.ipynb`.  
-2. The notebook will:
- - Train the model  
- - Generate prediction plots  
- - Export files:  
-   - `stock_lstm.h5`  
-   - `stock_lstm.tflite`  
-
-### 🔹 Mobile Deployment (Android)
-1. Place the `stock_lstm.tflite` file in:  
-android-app/assets/
-
-markdown
-Copy code
-2. Use **TensorFlow Lite Interpreter** to load and run predictions.  
-3. Input recent Tesla price data → view prediction → visualize results.  
-
----
-
-## 🎨 Android UI Design  
-
-**Color Palette:**  
-| Element | Color |
-|----------|-------|
-| Primary | `#5585b5` |
-| Accent  | `#53a8b6` |
-| Soft Blue | `#79c2d0` |
-| Light Cyan | `#bbe4e9` |
-
-**UI Highlights:**  
-- Central **animated “Start” button**  
-- **Main image asset:** `main.png`  
-- **Modern, minimalist layout**  
-- **Error/status messages** for clarity  
-
----
-
-## ⚙️ Required Dependencies  
-
-### 🧠 Python (Model Training)
-
-
-pandas
-numpy
-matplotlib
-scikit-learn
-tensorflow
-keras
-📱 Android
-bash
-Copy code
-TensorFlow Lite
-Android Studio (Java/Kotlin)
-Glide / Picasso
-Standard Android libraries
-📁 Folder Structure
-css
-Copy code
-project/
-├── stock_predictor.ipynb
-├── data/
-│   └── tesla_2014-2023.csv
-├── model/
-│   └── stock_lstm.tflite
-├── android-app/
-│   ├── assets/
-│   │   └── stock_lstm.tflite
-│   └── src/...
-├── main.png
-└── README.md
-🚀 How to Reproduce
-Clone this repository
-
-bash
-Copy code
-```
-git clone https://github.com/your-username/tesla-stock-predictor.git
-cd tesla-stock-predictor
-```
-Run the Notebook
-
+Installation
+Clone the repository:
+git clone https://github.com/yourusername/StockBazaar.git
+cd StockBazaar
+Install dependencies:
+pip install -r requirements.txt
+Usage
+Training the Model
+Open implementation.ipynb in Jupyter Notebook
+Run all cells to:
+Load and preprocess the data
+Create sequences for LSTM input (60-day windows)
 Train the LSTM model
+Generate predictions and visualizations
+Save the trained model
+Model Architecture
+Input Layer: 60-day sequences of features
+LSTM Layer 1: 100 units with return_sequences=True
+Dropout: 0.2
+LSTM Layer 2: 100 units
+Dropout: 0.2
+Dense Layer: 50 units with ReLU activation
+Output Layer: 1 unit (predicted price)
+Evaluating the Model
+Run analytics.ipynb to calculate:
 
-Export .tflite model
+Root Mean Squared Error (RMSE)
+Mean Absolute Error (MAE)
+R² Score
+Mean Absolute Percentage Error (MAPE)
+Model Performance
+The model achieves:
 
-Set up the Android project
+RMSE: $34.01 (14.30% of average price)
+MAE: $26.89 (11.31% of average price)
+R² Score: 0.588 (58.80% variance explained)
+MAPE: 12.60%
+Percentage Accuracy: 87.40%
+Directional Accuracy: 49.90%
+Dependencies
+pandas >= 1.5.3
+numpy >= 1.24.3
+matplotlib >= 3.7.1
+scikit-learn >= 1.2.2
+tensorflow >= 2.10.0
+h5py >= 3.8.0
+Project Structure
+StockBazaar/
+├── implementation.ipynb    # Main training notebook
+├── analytics.ipynb         # Model evaluation metrics
+├── dataset.csv             # Historical Tesla stock data
+├── tesla_lstm_model.h5     # Trained LSTM model
+├── model_analytics.png     # Analytics visualization
+├── requirements.txt        # Python dependencies
+├── README.md               # Project documentation
+├── LICENSE                 # MIT License
+└── .gitignore             # Git ignore rules
+Note: The trained model (tesla_lstm_model.h5) and analytics visualization (model_analytics.png) are included in this repository. If you want to retrain the model, run implementation.ipynb.
 
-Add model file in assets
+Android Deployment
+To deploy the model for Android:
 
-Sync dependencies in Android Studio
+Convert the trained model to TensorFlow Lite:
 
-Build and Run
+import tensorflow as tf
+converter = tf.lite.TFLiteConverter.from_keras_model(model)
+tflite_model = converter.convert()
+with open('stock_lstm.tflite', 'wb') as f:
+    f.write(tflite_model)
+Add the .tflite file to your Android app's assets folder
 
-Deploy on a physical Android device or emulator
+Use TensorFlow Lite Interpreter in your Android app to load and run predictions
 
-📚 References
-LSTM for Time Series Forecasting (TensorFlow)
+Notes
+Stock price prediction is inherently uncertain due to market volatility
+The model is trained on historical data and may not account for sudden market changes
+Use predictions as one of many factors in investment decisions
+Always validate predictions with current market conditions
+License
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-TensorFlow Lite Android Deployment Guide
-
-Tesla Stock Data - Yahoo Finance
-
-🪪 License
-This project is licensed under the MIT License — feel free to use, modify, and distribute.
-See the LICENSE file for details.
-
-🧠 Built with Passion using TensorFlow + Android Studio
-💡 Empowering AI-driven financial insights — anywhere, anytime.
+References
+LSTM for Time Series Forecasting
+TensorFlow Lite Documentation
+Yahoo Finance - Historical stock data source
