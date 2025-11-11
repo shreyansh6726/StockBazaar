@@ -1,4 +1,4 @@
-# Tesla Stock Price Predictor
+# Stock Price Predictor
 
 A machine learning project that predicts Tesla (TSLA) stock prices using LSTM neural networks trained on 10 years of historical market data (2014-2023).
 
