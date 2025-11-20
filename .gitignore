@@ -12,6 +12,7 @@ sp_env/
 *.userosscache
 *.sln.docstates
 *.env
+.env
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
