@@ -44,7 +44,7 @@ StockBazaar follows a **client-server architecture** with clear separation of co
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                      React Frontend (React 19)                   │
+│                      React Frontend (React 19)                  │
 │  - StockDashboard.jsx: Main component rendering charts & UI     │
 │  - Axios: HTTP client for API communication                     │
 │  - Recharts: Interactive charting library                       │
@@ -55,21 +55,21 @@ StockBazaar follows a **client-server architecture** with clear separation of co
                              │
                              ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│                   Flask Backend (Python)                         │
-│  - app.py: Main Flask application with API endpoint            │
-│  - stock.py: CLI utility for stock data analysis               │
-│  - CORS enabled for secure frontend communication              │
-│  - Deployed on: Render (Production)                            │
+│                   Flask Backend (Python)                        │
+│  - app.py: Main Flask application with API endpoint             │
+│  - stock.py: CLI utility for stock data analysis                │
+│  - CORS enabled for secure frontend communication               │
+│  - Deployed on: Render (Production)                             │
 └────────────────────────────┬────────────────────────────────────┘
                              │
                     HTTPS API Request (JSON)
                              │
                              ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│                   Alpha Vantage Financial API                    │
-│  - TIME_SERIES_DAILY: Provides historical daily stock prices   │
-│  - Returns: JSON data with OHLCV (Open, High, Low, Close, Vol) │
-│  - Rate Limited: Free tier allows 5 requests/min               │
+│                   Alpha Vantage Financial API                   │
+│  - TIME_SERIES_DAILY: Provides historical daily stock prices    │
+│  - Returns: JSON data with OHLCV (Open, High, Low, Close, Vol)  │
+│  - Rate Limited: Free tier allows 5 requests/min                │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
