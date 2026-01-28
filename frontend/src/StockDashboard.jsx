@@ -86,7 +86,7 @@ const StockDashboard = () => {
         if (!symbol) return;
         setLoading(true);
         try {
-            const res = await axios.get(`${stockbazaar.onrender.com}/api/stock/${symbol}`);
+            const res = await axios.get(`${'https://stockbazaar.onrender.com'}/api/stock/${symbol}`);
             const timeSeries = res.data['Time Series (Daily)'];
             
             if (timeSeries) {
