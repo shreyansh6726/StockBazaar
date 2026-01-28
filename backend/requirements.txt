@@ -1,13 +1,5 @@
-pandas
-numpy
-matplotlib
-scikit-learn
-tensorflow
-h5py
 flask
 flask-cors
-yfinance
+requests
+python-dotenv
 gunicorn
-yfinance
-tensorflow-cpu
-matplotlib
