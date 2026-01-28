@@ -3,9 +3,8 @@ import axios from 'axios';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 // Determine the API Base URL based on environment
-// Replace 'your-render-app-name' with your actual Render service name after deployment
 const API_BASE_URL = process.env.NODE_ENV === 'production' 
-    ? 'https://your-render-app-name.onrender.com' 
+    ? 'https://stockbazaar.onrender.com' 
     : 'http://localhost:5000';
 
 const companyMap = [
@@ -43,7 +42,7 @@ const companyMap = [
     { symbol: "V", name: "Visa Inc." },
     { symbol: "MA", name: "Mastercard Incorporated" },
     { symbol: "BAC", name: "Bank of America Corp." },
-    { symbol: "WFC", name: "Wells Fargo & Company" },
+    { symbol: "WFC", "name": "Wells Fargo & Company" },
     { symbol: "BRK.B", name: "Berkshire Hathaway Inc." },
     { symbol: "HSBC", name: "HSBC Holdings plc" },
     { symbol: "GS", name: "The Goldman Sachs Group, Inc." },
@@ -71,13 +70,12 @@ const StockDashboard = () => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    // Color Palette Constants from Color Hunt
     const colors = {
-        primary: "#6F8F72",    // Forest Green (Lines/Text)
-        secondary: "#F2A65A",  // Muted Orange (Accents/Loading)
-        bgMain: "#BFC6C4",     // Sage Grey (Page Background)
-        bgCard: "#E8E2D8",     // Warm Beige (Container Background)
-        textDark: "#2F3E33"    // Darker variant for readability
+        primary: "#6F8F72",    
+        secondary: "#F2A65A",  
+        bgMain: "#BFC6C4",     
+        bgCard: "#E8E2D8",     
+        textDark: "#2F3E33"    
     };
 
     const currentCompany = companyMap.find(c => c.symbol === selectedSymbol);
@@ -86,7 +84,8 @@ const StockDashboard = () => {
         if (!symbol) return;
         setLoading(true);
         try {
-            const res = await axios.get(`https://stockbazaar.onrender.com/api/stock/${symbol}`);
+            // FIX: Using the dynamic variable instead of hardcoded URL to avoid 'unused-vars' error
+            const res = await axios.get(`${API_BASE_URL}/api/stock/${symbol}`);
             const timeSeries = res.data['Time Series (Daily)'];
             
             if (timeSeries) {
