@@ -2,6 +2,12 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
+// Determine the API Base URL based on environment
+// Replace 'your-render-app-name' with your actual Render service name after deployment
+const API_BASE_URL = process.env.NODE_ENV === 'production' 
+    ? 'https://your-render-app-name.onrender.com' 
+    : 'http://localhost:5000';
+
 const companyMap = [
     { symbol: "AAPL", name: "Apple Inc." },
     { symbol: "MSFT", name: "Microsoft Corporation" },
@@ -65,7 +71,7 @@ const StockDashboard = () => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    // Color Palette Constants
+    // Color Palette Constants from Color Hunt
     const colors = {
         primary: "#6F8F72",    // Forest Green (Lines/Text)
         secondary: "#F2A65A",  // Muted Orange (Accents/Loading)
@@ -80,8 +86,9 @@ const StockDashboard = () => {
         if (!symbol) return;
         setLoading(true);
         try {
-            const res = await axios.get(`http://localhost:5000/api/stock/${symbol}`);
+            const res = await axios.get(`${API_BASE_URL}/api/stock/${symbol}`);
             const timeSeries = res.data['Time Series (Daily)'];
+            
             if (timeSeries) {
                 const formattedData = Object.keys(timeSeries).map(date => ({
                     date,
@@ -89,10 +96,12 @@ const StockDashboard = () => {
                 })).reverse();
                 setData(formattedData);
             } else {
+                console.error("API response missing time series data", res.data);
                 setData([]);
             }
         } catch (err) {
-            console.error("Error fetching data", err);
+            console.error("Error fetching data:", err);
+            setData([]);
         }
         setLoading(false);
     };
@@ -123,6 +132,7 @@ const StockDashboard = () => {
                         backgroundColor: colors.bgCard,
                         fontSize: '16px', 
                         width: '320px', 
+                        maxHeight: '200px',
                         cursor: 'pointer',
                         outline: 'none',
                         color: colors.textDark,
@@ -154,6 +164,8 @@ const StockDashboard = () => {
                     <div style={{ marginBottom: '25px', textAlign: 'left', paddingLeft: '20px' }}>
                         <h2 style={{ color: colors.primary, margin: '0', fontSize: '28px' }}>{currentCompany?.name}</h2>
                         <span style={{ 
+                            display: 'inline-block',
+                            marginTop: '5px',
                             backgroundColor: colors.secondary, 
                             color: '#fff', 
                             padding: '4px 12px', 
@@ -205,8 +217,8 @@ const StockDashboard = () => {
                 <div style={{ marginTop: '100px', opacity: 0.7 }}>
                     <p style={{ fontSize: '18px', color: colors.primary }}>
                         {selectedSymbol 
-                            ? "Data unavailable. Please check your API limits." 
-                            : "Welcome! Start by picking a company to view its performance."}
+                            ? "Data currently unavailable. Please check your API limits or server status." 
+                            : "Welcome to StockBazaar! Select a company above to view its performance."}
                     </p>
                 </div>
             )}
