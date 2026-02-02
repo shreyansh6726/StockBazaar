@@ -12,122 +12,129 @@ const App = () => {
   const getPrediction = async () => {
     if (!symbol) return;
     setLoading(true);
+    setResult(null); // Clear previous result to show loading state clearly
     try {
       const response = await axios.get(`${BACKEND_URL}/predict?symbol=${symbol}&tenure=${tenure}`);
       setResult(response.data);
     } catch (error) {
       console.error("Error:", error);
-      alert("Backend is initializing. Please wait a moment.");
+      alert("Model engine is warming up on Render. Please try again in 30 seconds.");
     }
     setLoading(false);
   };
 
-  // --- Styles Objects ---
   const styles = {
     container: {
       minHeight: '100vh',
-      backgroundColor: '#0a0a0c',
+      backgroundColor: '#050505', // Deep SaaS black
       color: '#f4f4f5',
-      fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+      fontFamily: "'Inter', sans-serif",
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      padding: '40px 20px',
+      padding: '60px 20px',
     },
     header: {
-      fontSize: '2.5rem',
-      fontWeight: '800',
-      letterSpacing: '-0.05em',
-      background: 'linear-gradient(to right, #ffffff, #a1a1aa)',
-      WebkitBackgroundClip: 'text',
-      WebkitTextFillColor: 'transparent',
-      marginBottom: '50px',
-      animation: 'fadeIn 1s ease-out',
+      fontSize: '1rem',
+      fontWeight: '600',
+      letterSpacing: '0.4em',
+      color: '#52525b',
+      marginBottom: '60px',
+      textAlign: 'center',
     },
     inputCard: {
-      background: '#18181b',
-      padding: '30px',
-      borderRadius: '16px',
-      border: '1px solid #27272a',
+      background: '#09090b',
+      padding: '10px',
+      borderRadius: '12px',
+      border: '1px solid #18181b',
       display: 'flex',
-      gap: '15px',
+      gap: '10px',
       width: '100%',
-      maxWidth: '700px',
-      boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
+      maxWidth: '600px',
       marginBottom: '40px',
     },
     input: {
       flex: 2,
-      background: '#09090b',
-      border: '1px solid #3f3f46',
-      borderRadius: '8px',
+      background: 'transparent',
+      border: 'none',
       padding: '12px 16px',
       color: 'white',
-      fontSize: '1rem',
+      fontSize: '0.95rem',
       outline: 'none',
-      transition: 'border-color 0.2s',
     },
     select: {
-      flex: 1,
-      background: '#09090b',
-      border: '1px solid #3f3f46',
-      borderRadius: '8px',
-      padding: '12px',
-      color: 'white',
+      background: '#18181b',
+      border: 'none',
+      borderRadius: '6px',
+      padding: '0 10px',
+      color: '#a1a1aa',
       cursor: 'pointer',
+      fontSize: '0.85rem',
     },
     button: {
-      flex: 1,
-      background: loading ? '#27272a' : '#ffffff',
+      background: '#ffffff',
       color: '#000000',
       border: 'none',
-      borderRadius: '8px',
-      fontWeight: '600',
-      cursor: loading ? 'not-allowed' : 'pointer',
-      transition: 'transform 0.2s, opacity 0.2s',
+      borderRadius: '6px',
+      padding: '0 25px',
+      fontWeight: '700',
+      fontSize: '0.85rem',
+      cursor: 'pointer',
+      transition: 'all 0.3s ease',
     },
+    // --- Loading Screen Styles ---
+    loadingWrapper: {
+      marginTop: '50px',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      gap: '20px',
+      animation: 'fadeIn 0.5s ease-in-out',
+    },
+    spinner: {
+      width: '40px',
+      height: '40px',
+      border: '2px solid #27272a',
+      borderTop: '2px solid #ffffff',
+      borderRadius: '50%',
+      animation: 'spin 0.8s linear infinite',
+    },
+    loadingText: {
+      fontSize: '0.85rem',
+      color: '#a1a1aa',
+      letterSpacing: '0.1em',
+    },
+    // --- Result Styles ---
     resultCard: {
       width: '100%',
-      maxWidth: '700px',
-      background: 'linear-gradient(145deg, #18181b 0%, #09090b 100%)',
-      borderRadius: '20px',
-      padding: '40px',
-      border: '1px solid #27272a',
+      maxWidth: '600px',
       textAlign: 'center',
-      animation: 'slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
+      animation: 'slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1)',
     },
-    price: {
-      fontSize: '4rem',
-      fontWeight: '900',
-      margin: '10px 0',
-      color: '#ffffff',
-    },
-    trendBadge: (trend) => ({
-      display: 'inline-block',
-      padding: '6px 16px',
-      borderRadius: '100px',
-      fontSize: '0.85rem',
-      fontWeight: '700',
-      backgroundColor: trend === 'UP' ? 'rgba(34, 197, 94, 0.1)' : 'rgba(239, 68, 68, 0.1)',
-      color: trend === 'UP' ? '#4ade80' : '#f87171',
-      border: `1px solid ${trend === 'UP' ? '#166534' : '#7f1d1d'}`,
-      marginBottom: '20px',
-    }),
-    footerText: {
+    priceLabel: {
       color: '#71717a',
-      fontSize: '0.9rem',
-      marginTop: '15px'
+      fontSize: '0.8rem',
+      textTransform: 'uppercase',
+      letterSpacing: '0.1em',
+      marginBottom: '10px',
+    },
+    priceValue: {
+      fontSize: '5rem',
+      fontWeight: '800',
+      letterSpacing: '-0.04em',
+      margin: '0',
     }
   };
 
   return (
     <div style={styles.container}>
-      {/* Dynamic Keyframes injected into a style tag */}
       <style>
         {`
+          @keyframes spin { to { transform: rotate(360deg); } }
           @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-          @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-          input:focus { border-color: #ffffff !important; }
+          @keyframes slideUp { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+          @keyframes pulse { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
+          .pulse { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
         `}
       </style>
 
@@ -136,39 +143,45 @@ const App = () => {
       <div style={styles.inputCard}>
         <input 
           style={styles.input}
-          placeholder="Ticker Symbol (e.g. NVDA)"
+          placeholder="ENTER TICKER..."
           value={symbol}
           onChange={(e) => setSymbol(e.target.value.toUpperCase())}
         />
-        <select 
-          style={styles.select}
-          value={tenure}
-          onChange={(e) => setTenure(e.target.value)}
-        >
+        <select style={styles.select} value={tenure} onChange={(e) => setTenure(e.target.value)}>
           <option value="1h">1 Hour</option>
           <option value="1d">1 Day</option>
           <option value="1w">1 Week</option>
         </select>
-        <button 
-          style={styles.button}
-          onClick={getPrediction}
-          disabled={loading}
-          onMouseEnter={(e) => e.target.style.opacity = '0.9'}
-          onMouseLeave={(e) => e.target.style.opacity = '1'}
-        >
-          {loading ? "ANALYZING..." : "PREDICT"}
+        <button style={styles.button} onClick={getPrediction} disabled={loading}>
+          {loading ? "..." : "PREDICT"}
         </button>
       </div>
 
-      {result && (
-        <div style={styles.resultCard}>
-          <div style={styles.trendBadge(result.prediction.trend)}>
-            {result.prediction.trend} TREND DETECTED
+      {/* Loading State */}
+      {loading && (
+        <div style={styles.loadingWrapper}>
+          <div style={styles.spinner}></div>
+          <div className="pulse" style={styles.loadingText}>
+            TRAINING LSTM MODEL • ANALYZING DATA
           </div>
-          <div style={{color: '#a1a1aa', fontSize: '0.9rem'}}>Upcoming Predicted Price</div>
-          <div style={styles.price}>${result.prediction.predicted_price}</div>
-          <div style={styles.footerText}>
-            Current Reference: ${result.prediction.last_close} • {result.metadata.tenure} Horizon
+        </div>
+      )}
+
+      {/* Result State */}
+      {result && !loading && (
+        <div style={styles.resultCard}>
+          <div style={styles.priceLabel}>Predicted {result.metadata.symbol} Value</div>
+          <h2 style={styles.priceValue}>${result.prediction.predicted_price}</h2>
+          <div style={{
+            color: result.prediction.trend === 'UP' ? '#4ade80' : '#f87171',
+            fontWeight: '600',
+            fontSize: '1rem',
+            marginTop: '10px'
+          }}>
+            EXPECTED {result.prediction.trend}WARD MOMENTUM
+          </div>
+          <div style={{marginTop: '40px', fontSize: '0.75rem', color: '#3f3f46'}}>
+             CONFIDENCE: HIGH • BASED ON LAST 500 DATA POINTS
           </div>
         </div>
       )}

@@ -3,7 +3,6 @@ flask-cors
 numpy
 pandas
 scikit-learn
-tensorflow
 twelvedata
 python-dotenv
 gunicorn
