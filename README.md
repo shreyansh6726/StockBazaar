@@ -4,9 +4,11 @@ StockBazaar is a professional-grade, AI-driven stock price prediction platform. 
 ## Project Architecture
 The project is organized as a monorepo to maintain synchronized version control across the stack:
 
-# Frontend: Built with React (Create React App), utilizing inline JSX styling for a minimalist, corporate SaaS aesthetic. It communicates with the backend via RESTful API calls and manages persistent user sessions through browser localStorage.
+# Frontend: 
+Built with React (Create React App), utilizing inline JSX styling for a minimalist, corporate SaaS aesthetic. It communicates with the backend via RESTful API calls and manages persistent user sessions through browser localStorage.
 
-# Backend: A Flask-based Python server deployed on Render. It processes financial data fetched from the Twelve Data API and executes a Linear Regression model for high-speed, low-latency trend analysis.
+# Backend: 
+A Flask-based Python server deployed on Render. It processes financial data fetched from the Twelve Data API and executes a Linear Regression model for high-speed, low-latency trend analysis.
 
 ## Features
 Real-time Analysis: Fetches and processes live market data for any globally listed ticker symbol.
