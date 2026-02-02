@@ -1,13 +1,13 @@
-### StockBazaar
+# StockBazaar
 StockBazaar is a professional-grade, AI-driven stock price prediction platform. The application utilizes a React-based frontend and a Python-based Flask backend to analyze historical market data and provide real-time price forecasts across various time horizons.
 
 ## Project Architecture
 The project is organized as a monorepo to maintain synchronized version control across the stack:
 
-# Frontend: 
+### Frontend: 
 Built with React (Create React App), utilizing inline JSX styling for a minimalist, corporate SaaS aesthetic. It communicates with the backend via RESTful API calls and manages persistent user sessions through browser localStorage.
 
-# Backend: 
+### Backend: 
 A Flask-based Python server deployed on Render. It processes financial data fetched from the Twelve Data API and executes a Linear Regression model for high-speed, low-latency trend analysis.
 
 ## Features
@@ -22,14 +22,14 @@ High Performance: Optimized mathematical modeling ensuring response times fall w
 Deployment Ready: Pre-configured for seamless integration with Render (Backend) and Vercel (Frontend).
 
 ## Technical Specifications
-# Backend
+### Backend
 The backend engine leverages scikit-learn to calculate linear trends based on historical price closing points. This approach was chosen to maximize computational efficiency on cloud-native serverless environments.
 
 # Frontend
 The user interface is designed with a dark-mode SaaS theme. It includes custom CSS-in-JS animations to enhance user experience during the model's analytical phase.
 
 ## Installation and Setup
-# Prerequisites
+### Prerequisites
 
 Node.js (v16.0.0 or higher)
 
@@ -47,7 +47,7 @@ Install dependencies: ```pip install -r requirements.txt```
 
 Start the server: ```python app.py```
 
-# Frontend Configuration
+### Frontend Configuration
 Navigate to the frontend directory.
 
 Install dependencies: ```npm install```
