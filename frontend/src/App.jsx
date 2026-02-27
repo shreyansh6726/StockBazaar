@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const BACKEND_URL = "https://stockbazaar.onrender.com";
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
 const App = () => {
   const [symbol, setSymbol] = useState('');
@@ -141,7 +141,7 @@ const App = () => {
       <h1 style={styles.header}>STOCKBAZAAR</h1>
 
       <div style={styles.inputCard}>
-        <input 
+        <input
           style={styles.input}
           placeholder="ENTER TICKER..."
           value={symbol}
@@ -180,8 +180,8 @@ const App = () => {
           }}>
             EXPECTED {result.prediction.trend}WARD MOMENTUM
           </div>
-          <div style={{marginTop: '40px', fontSize: '0.75rem', color: '#3f3f46'}}>
-             CONFIDENCE: HIGH • BASED ON LAST 500 DATA POINTS
+          <div style={{ marginTop: '40px', fontSize: '0.75rem', color: '#3f3f46' }}>
+            CONFIDENCE: HIGH • BASED ON LAST 500 DATA POINTS
           </div>
         </div>
       )}
