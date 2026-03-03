@@ -96,19 +96,49 @@ const LandingPage = () => {
             animation: zoomOutFade 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards !important;
             pointer-events: none;
           }
+
+          /* Responsive Adjustments */
+          @media (max-width: 768px) {
+            .hero-title {
+              font-size: 2.8rem !important;
+              letter-spacing: 0.1em !important;
+            }
+            .hero-subtitle {
+              font-size: 1.1rem !important;
+              padding: 0 10px;
+            }
+            .hero-section {
+              padding: 0 10px;
+            }
+            .footer-info {
+              bottom: 20px !important;
+              font-size: 0.65rem !important;
+            }
+          }
+
+          @media (max-width: 480px) {
+            .hero-title {
+              font-size: 2.2rem !important;
+            }
+            .get-started-btn {
+              width: 100%;
+              max-width: 250px;
+              padding: 14px 20px !important;
+            }
+          }
         `}
             </style>
 
             <Aurora
                 colorStops={["#7cff67", "#B19EEF", "#5227FF"]}
                 blend={0.5}
-                amplitude={1.0}
-                speed={1}
+                amplitude={window.innerWidth < 768 ? 1.5 : 1.0}
+                speed={window.innerWidth < 768 ? 0.8 : 1}
             />
 
-            <div style={styles.heroSection}>
-                <h1 style={styles.title}>STOCKBAZAAR</h1>
-                <p style={styles.subtitle}>
+            <div style={styles.heroSection} className="hero-section">
+                <h1 style={styles.title} className="hero-title">STOCKBAZAAR</h1>
+                <p style={styles.subtitle} className="hero-subtitle">
                     Predict the future of markets with our advanced LSTM neural networks.
                     Real-time analysis, high-confidence insights, and professional-grade tools.
                 </p>
@@ -121,7 +151,7 @@ const LandingPage = () => {
                 </button>
             </div>
 
-            <div style={{
+            <div className="footer-info" style={{
                 position: 'absolute',
                 bottom: '40px',
                 fontSize: '0.75rem',

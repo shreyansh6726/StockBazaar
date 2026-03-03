@@ -136,12 +136,27 @@ const Dashboard = () => {
           @keyframes slideUp { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
           @keyframes pulse { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
           .pulse { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+
+          /* Dashboard Responsive */
+          @media (max-width: 768px) {
+            .input-card {
+              flex-direction: column !important;
+              padding: 20px !important;
+              gap: 15px !important;
+            }
+            .price-display {
+              font-size: 3rem !important;
+            }
+            .dashboard-container {
+              padding: 40px 20px !important;
+            }
+          }
         `}
       </style>
 
       <h1 style={styles.header}>STOCKBAZAAR</h1>
 
-      <div style={styles.inputCard}>
+      <div style={styles.inputCard} className="input-card">
         <input
           style={styles.input}
           placeholder="ENTER TICKER..."
@@ -172,7 +187,7 @@ const Dashboard = () => {
       {result && !loading && (
         <div style={styles.resultCard}>
           <div style={styles.priceLabel}>Predicted {result.metadata.symbol} Value</div>
-          <h2 style={styles.priceValue}>${result.prediction.predicted_price}</h2>
+          <h2 style={styles.priceValue} className="price-display">${result.prediction.predicted_price}</h2>
           <div style={{
             color: result.prediction.trend === 'UP' ? '#4ade80' : '#f87171',
             fontWeight: '600',
